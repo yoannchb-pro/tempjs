@@ -5,7 +5,7 @@ const pkg = require("./package.json");
 const config = require("./tsconfig.json");
 
 module.exports = {
-  input: "./index.ts",
+  input: "src/index.ts",
   output: [
     {
       file: pkg.main,

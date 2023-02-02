@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"],
     "declaration": true,
-    "typeRoots": ["node_modules/@types"]
+    "typeRoots": ["types", "node_modules/@types"]
   },
-  "include": ["index.ts"]
+  "include": ["src/**/*"]
 }
