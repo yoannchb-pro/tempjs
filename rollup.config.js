@@ -1,4 +1,5 @@
 const ts = require("rollup-plugin-ts");
+const terser = require("@rollup/plugin-terser");
 
 const pkg = require("./package.json");
 const config = require("./tsconfig.json");
@@ -13,5 +14,5 @@ module.exports = {
       sourcemap: true,
     },
   ],
-  plugins: [ts(config)],
+  plugins: [ts(config), terser()],
 };
