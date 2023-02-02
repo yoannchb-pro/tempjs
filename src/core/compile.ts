@@ -20,47 +20,65 @@ function compile(
   opts.delimiters = (opts.delimiters ?? []).concat(defaultDelimiters);
   opts.plugins = (opts.plugins ?? []).concat(defaultPlugins);
 
+  //regex for js code
   const delimiterRegex = new RegExp(
     opts.openDelimiter + "([\\s\\S]*?)" + opts.closeDelimiter,
     "gi"
   );
 
-  const result: string[] = [];
+  //final generated code to be executed
+  const generatedCode: string[] = ["let $__output=''"];
 
+  //split the text by the js instruction
   const templateText = template.split(
     new RegExp(opts.openDelimiter + "[\\s\\S]*?" + opts.closeDelimiter, "gi")
   );
 
   let match: RegExpExecArray;
   while ((match = delimiterRegex.exec(template)) !== null) {
-    const jsInstruction = match[1];
-    const text = JSON.stringify(templateText.shift());
+    const jsInstruction = match[1]; //js instruction
+    const originalText = templateText.shift(); //text
+    const text = JSON.stringify(originalText); //text as string for the code
 
     let finalJsInstruction = jsInstruction;
 
+    //check is custom delimiter is present
     const customDelimiter = opts.delimiters.find((delimiter) =>
       jsInstruction.startsWith(delimiter.delimiter)
     );
 
+    //if there is a custom delimiter we modify the js instruction
     if (customDelimiter) {
       finalJsInstruction = customDelimiter.fn(
         jsInstruction.replace(customDelimiter.delimiter, "")
       );
     }
 
-    result.push(
-      (text ? text + "+" : "") + `((function(){ ${finalJsInstruction} })()??"")`
-    );
+    //check order (we put the text before or after the js instruction ?)
+    if (
+      text &&
+      template.indexOf(originalText) < template.indexOf(jsInstruction)
+    ) {
+      generatedCode.push(`$__output += ${text}`);
+      generatedCode.push(finalJsInstruction);
+    } else if (text) {
+      generatedCode.push(finalJsInstruction);
+      generatedCode.push(`$__output += ${text}`);
+    } else {
+      generatedCode.push(finalJsInstruction);
+    }
   }
 
-  const code =
-    "return " +
-    result.join(" + ") +
-    (templateText.length > 0 ? "+" + JSON.stringify(templateText.shift()) : "");
+  //if we dont finish the template by an instruction some text left
+  if (templateText.length > 0)
+    generatedCode.push(`$__output += ${JSON.stringify(templateText.shift())}`);
+  generatedCode.push("return $__output");
+
+  //generate the function to evaluate with plugins, data and context
   return new Function(
     ...Object.keys(data),
     ...opts.plugins.map((plugin) => plugin.name),
-    code
+    generatedCode.join(";")
   ).apply(opts.context ?? null, [
     ...Object.values(data),
     ...opts.plugins.map((plugin) => plugin.fn),

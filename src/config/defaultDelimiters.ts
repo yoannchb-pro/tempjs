@@ -5,7 +5,7 @@ const defaultDelimiters: Options["delimiters"] = [
     name: "return",
     delimiter: "=",
     fn: function (content) {
-      return "return " + content;
+      return "$__output += " + content;
     },
   },
   {
