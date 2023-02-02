@@ -19,16 +19,19 @@ function tempjs(
     new RegExp(opts.openDelimiter + "[\\s\\S]*?" + opts.closeDelimiter, "gi")
   );
 
-  let index = 0;
   let match: RegExpExecArray;
   while ((match = delimiterRegex.exec(template)) !== null) {
     const jsInstruction = match[1];
-    const text = JSON.stringify(templateText[index]);
-    result.push(`${text} + ((function(){ ${jsInstruction} })() ?? "")`);
-    ++index;
+    const text = JSON.stringify(templateText.shift());
+    result.push(
+      (text ? text + "+" : "") + `((function(){ ${jsInstruction} })()??"")`
+    );
   }
 
-  const code = "return " + result.join(" + ");
+  const code =
+    "return " +
+    result.join(" + ") +
+    (templateText.length > 0 ? "+" + JSON.stringify(templateText.shift()) : "");
   return new Function(...Object.keys(data), code).apply(
     null,
     Object.values(data)
