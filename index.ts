@@ -1,9 +1,23 @@
-function tempjs(template: string, data: Record<string, unknown>): string {
-  const delimiterRegex = /\{\{([\s\S]*?)\}\}/gi;
+type Options = {
+  openDelimiter: string;
+  closeDelimiter: string;
+};
+
+function tempjs(
+  template: string,
+  data: Record<string, unknown>,
+  opts: Options = { openDelimiter: "{{", closeDelimiter: "}}" }
+): string {
+  const delimiterRegex = new RegExp(
+    opts.openDelimiter + "([\\s\\S]*?)" + opts.closeDelimiter,
+    "gi"
+  );
 
   const result: string[] = [];
 
-  const templateText = template.split(/\{\{[\s\S]*?\}\}/gi);
+  const templateText = template.split(
+    new RegExp(opts.openDelimiter + "[\\s\\S]*?" + opts.closeDelimiter, "gi")
+  );
 
   let index = 0;
   let match: RegExpExecArray;
