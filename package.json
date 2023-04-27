@@ -23,6 +23,8 @@
     "templating-langage",
     "javascript",
     "typescript",
+    "template",
+    "nodejs",
     "ejs"
   ],
   "author": "yoannchb",
