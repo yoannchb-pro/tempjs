@@ -53,21 +53,15 @@ document.body.innerHTML = tempjs.compile(
 Working with async is pretty simple
 
 ```js
-tempjs.compile(
+await tempjs.compile(
   `
     {%
         const req = await fetch("https://jsonplaceholder.typicode.com/todos/")
         const todos = await req.json()
     %}
     <ul>
-        {% let index = 0 %}
         {% for(const todo of todos){ %}    
-            {% if(index%2 === 0) { %} 
-                <li style="color: red">{%= todo.title %}</li>
-            {% } else { %}
-                <li style="color: green">{%= todo.title %}</li>
-            {% } %}
-            {% ++index %}
+            <li>{%= todo.title %}</li>
         {% } %}
     </ul>
     `,
@@ -125,8 +119,8 @@ type Options = {
 
 - <b>openDelimiter</b> (default: {%) : Open delimiter
 - <b>closeDelimiter</b> (default: %}) : Close delimiter
-- <b>context</b> : Context of the function
-- <b>async</b> : Make asynchronous requests in the template
+- <b>context</b> (default: null) : Context of the function
+- <b>async</b> (default: false) : Make asynchronous requests in the template
 - <b>delimiters</b> : Create customs delimiters. By default you have:
 
 ```
