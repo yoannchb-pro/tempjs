@@ -90,9 +90,11 @@ await tempjs.compile(
 #### Return a value
 
 ```
-{% const greeting = "Hello World" %}
-{%= greeting %}
+{% const greeting = "Hello World!" %}
+<h1>{%= greeting %}</h1>
 ```
+
+Should compile as follow: <h1>Hello World!</h1>
 
 #### Writing comments
 
@@ -100,8 +102,11 @@ await tempjs.compile(
 {%#
     You can write some comments here it will not be shown or evaluate
     console.log("I ll not show")
- %}
+%}
+<h1>I love Tempjs</h1>
 ```
+
+Should compile as follow: <h1>I love Tempjs</h1>
 
 ### Options
 
