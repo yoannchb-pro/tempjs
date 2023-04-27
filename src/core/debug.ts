@@ -21,6 +21,11 @@ type DebugResult<T extends Options> = {
 
 const AsyncFunction = async function () {}.constructor;
 
+//code from https://github.com/sindresorhus/escape-string-regexp
+function unescapeRegex(str: string) {
+  return str.replace(/[|\\{}()[\]^$+*?.]/g, "\\$&").replace(/-/g, "\\x2d");
+}
+
 /**
  * Debug a template
  * @param template the template
@@ -33,13 +38,15 @@ function debug<O extends Options>(
   data: Record<string, unknown> = {},
   opts: O = {} as O
 ) {
-  opts = Object.assign(defaultOptions, opts);
+  opts = Object.assign({}, defaultOptions, opts);
   opts.delimiters = (opts.delimiters ?? []).concat(defaultDelimiters);
   opts.plugins = (opts.plugins ?? []).concat(defaultPlugins);
 
   const generatedCode: string[] = ["let $__output=''"];
   const delimiterRegex = new RegExp(
-    `(\\n?[\\s\\t]*${opts.openDelimiter}_?[\\s\\S]*?_?${opts.closeDelimiter}[\\s\\t]*\\n?)`,
+    String.raw`(\n?[\s\t]*${unescapeRegex(
+      opts.openDelimiter
+    )}_?[\s\S]*?_?${unescapeRegex(opts.closeDelimiter)}[\s\t]*\n?)`,
     "gi"
   );
 
@@ -76,7 +83,7 @@ function debug<O extends Options>(
     if (customDelimiter) {
       jsInstruction = customDelimiter.fn(jsInstruction.substring(1), opts);
     }
-
+    console.log(jsInstruction, delimiterRegex);
     generatedCode.push(jsInstruction);
 
     if (!removeEndWhiteSpace)
