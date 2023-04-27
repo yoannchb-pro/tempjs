@@ -94,7 +94,7 @@ await tempjs.compile(
 <h1>{%= greeting %}</h1>
 ```
 
-Should compile as follow: <h1>Hello World!</h1>
+Should compile as follow: `<h1>Hello World!</h1>`
 
 #### Writing comments
 
@@ -106,7 +106,7 @@ Should compile as follow: <h1>Hello World!</h1>
 <h1>I love Tempjs</h1>
 ```
 
-Should compile as follow: <h1>I love Tempjs</h1>
+Should compile as follow: `<h1>I love Tempjs</h1>`
 
 ### Options
 
