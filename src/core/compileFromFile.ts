@@ -14,10 +14,10 @@ let defaultDirPath: string = "";
  * @param opts compile options
  * @returns
  */
-function compileFromFile(
+function compileFromFile<O extends Options = {}>(
   file: string,
   data: Record<string, unknown> = {},
-  opts: Options = {}
+  opts: O
 ) {
   if (!isNode)
     throw new Error("Including file is only available in nodejs environement");

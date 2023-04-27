@@ -2,6 +2,10 @@
 
 TEMPJS is a fast, low code and no dependencies templating langage where you can use javascript inside html !
 
+## Update
+
+See the [CHANGELOG](./CHANGELOG.md) file
+
 ## Installation
 
 ```
@@ -91,7 +95,7 @@ include(filaname: string, data: Record<string, unknown>, options: Options)
 
 #### Return a value
 
-```
+```html
 {% const greeting = "Hello World!" %}
 <h1>{%= greeting %}</h1>
 ```
@@ -100,15 +104,21 @@ Should compile as follow: `<h1>Hello World!</h1>`
 
 #### Writing comments
 
-```
-{%#
-    You can write some comments here it will not be shown or evaluate
-    console.log("I ll not show")
-%}
+```html
+{%# You can write some comments here it will not be shown or evaluate
+console.log("I ll not show") %}
 <h1>I love Tempjs</h1>
 ```
 
 Should compile as follow: `<h1>I love Tempjs</h1>`
+
+### Skip js instruction
+
+```
+{%% gretting %}
+```
+
+Should compile as follow: `{% gretting %}`
 
 ### Options
 
@@ -118,6 +128,7 @@ type Options = {
   closeDelimiter?: string;
   context?: unknown;
   async?: boolean;
+  minimified?: boolean;
   delimiters?: {
     name: string;
     description: string;
@@ -132,11 +143,13 @@ type Options = {
 - <b>closeDelimiter</b> (default: %}) : Close delimiter
 - <b>context</b> (default: null) : Context of the function
 - <b>async</b> (default: false) : Make asynchronous requests in the template
+- <b>minimified</b> (default: true) : Make the generated code more readable in debug mode
 - <b>delimiters</b> : Create customs delimiters. By default you have:
 
 ```
 = return a value
 # create a comment
+% Ingnore js instruction and display is as text with delimiters
 ```
 
 Examples of implementation:
@@ -148,7 +161,7 @@ Examples of implementation:
     name: "comment",
     description: "Shortcut to turn some code into a comment",
     delimiter: "#",
-    fn: function (content) {
+    fn: function (content, options) {
       return "/*" + content + "*/";
     },
   }
@@ -161,7 +174,7 @@ Examples of implementation:
     name: "return",
     description: "Allow user to add variable to the output",
     delimiter: "=",
-    fn: function (content) {
+    fn: function (content, options) {
       return "$__output += " + content;
     },
 },

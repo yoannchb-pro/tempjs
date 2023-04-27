@@ -1,12 +1,29 @@
-import Options from "../types/options";
+type Options = {
+    openDelimiter?: string;
+    closeDelimiter?: string;
+    context?: unknown;
+    async?: boolean;
+    minimified?: boolean;
+    delimiters?: {
+        name: string;
+        description: string;
+        delimiter: string;
+        fn: (content: string, options: Options) => string;
+    }[];
+    plugins?: {
+        name: string;
+        description: string;
+        fn: Function;
+    }[];
+};
 /**
  * Compile a tempjs template
  * @param template the template
  * @param data data you need in the template
- * @param opts compile options
+ * @param opts compiler options
  * @returns
  */
-declare function compile(template: string, data?: Record<string, unknown>, opts?: Options): string | Promise<string>;
+declare function compile<O extends Options = {}>(template: string, data: Record<string, unknown>, opts: O): O["async"] extends true ? Promise<string> : string;
 /**
  * Compile from a file content
  * @param file file path
@@ -14,7 +31,7 @@ declare function compile(template: string, data?: Record<string, unknown>, opts?
  * @param opts compile options
  * @returns
  */
-declare function compileFromFile(file: string, data?: Record<string, unknown>, opts?: Options): string | Promise<string>;
+declare function compileFromFile<O extends Options = {}>(file: string, data: Record<string, unknown>, opts: O): O["async"] extends true ? Promise<string> : string;
 declare const _default: {
     compile: typeof compile;
     compileFromFile: typeof compileFromFile;

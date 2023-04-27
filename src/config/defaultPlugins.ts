@@ -1,5 +1,5 @@
-import Options from "../types/options";
 import compileFromFile from "../core/compileFromFile";
+import Options from "../types/options";
 
 const defaultPlugins: Options["plugins"] = [
   {

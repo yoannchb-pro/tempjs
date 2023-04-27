@@ -17,6 +17,14 @@ const defaultDelimiters: Options["delimiters"] = [
       return "/*" + content + "*/";
     },
   },
+  {
+    name: "cancel",
+    description: "Output the instruction as text with delimiters",
+    delimiter: "%",
+    fn: function (content, options) {
+      return `$__ouput += ${options.openDelimiter}${content}${options.closeDelimiter}`;
+    },
+  },
 ];
 
 export default defaultDelimiters;
