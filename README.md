@@ -97,7 +97,10 @@ await tempjs.compile(
 #### Writing comments
 
 ```
-{%# Simple comment %}
+{%#
+    You can write some comments here it will not be shown or evaluate
+    console.log("I ll not show")
+ %}
 ```
 
 ### Options
