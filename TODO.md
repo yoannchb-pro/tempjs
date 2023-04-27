@@ -1,3 +1,2 @@
 - Fixe types for async
-- Fixe test errors
 - Add root option

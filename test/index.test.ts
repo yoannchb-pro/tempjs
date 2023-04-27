@@ -44,6 +44,17 @@ describe("Simple test list", function () {
     expect(result).toBe("<p>Hello</p>");
   });
 
+  it("White space and delimiter - Should remove white space but keep custom delimiter", function () {
+    const data = { greeting: "Hello" };
+    const result = tempjs.compile(
+      `
+       {%_= greeting _%}
+    `,
+      data
+    );
+    expect(result).toBe("Hello");
+  });
+
   it("Skip js instruction - Should skip js instruction", function () {
     const result = tempjs.compile("{%% console.log('hey') %}");
     expect(result).toBe("{% console.log('hey') %}");
