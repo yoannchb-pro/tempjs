@@ -58,8 +58,8 @@ function debug<O extends Options>(
     );
 
     //check if we remove white spaces or not
-    const removeStartWhiteSpace = text.startsWith("_");
-    const removeEndWhiteSpace = text.endsWith("_");
+    const removeStartWhiteSpace = jsInstruction.startsWith("_");
+    const removeEndWhiteSpace = jsInstruction.endsWith("_");
     if (removeStartWhiteSpace) {
       jsInstruction = jsInstruction.substring(1);
     } else {
