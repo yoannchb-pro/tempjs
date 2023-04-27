@@ -139,7 +139,7 @@ type Options = {
 # create a comment
 ```
 
-Example of implementation:
+Examples of implementation:
 
 > Comment
 
