@@ -3,7 +3,7 @@
     "module": "CommonJS",
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "target": "ES6",
+    "target": "ES2018",
     "noImplicitAny": true,
     "moduleResolution": "node",
     "sourceMap": true,
@@ -11,7 +11,7 @@
     "resolveJsonModule": true,
     "types": ["node", "jest"],
     "declaration": true,
-    "typeRoots": ["types", "node_modules/@types"]
+    "typeRoots": ["src/types", "node_modules/@types"]
   },
   "include": ["src/**/*"]
 }

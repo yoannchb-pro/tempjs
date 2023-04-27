@@ -1,8 +1,8 @@
-import Options from "../../types/options";
+import Options from "../types/options";
 
 const defaultOptions: Options = {
-  openDelimiter: "{{",
-  closeDelimiter: "}}",
+  openDelimiter: "{%",
+  closeDelimiter: "%}",
 };
 
 export default defaultOptions;

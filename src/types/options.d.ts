@@ -2,6 +2,7 @@ type Options = {
   openDelimiter?: string;
   closeDelimiter?: string;
   context?: unknown;
+  async?: boolean;
   delimiters?: {
     name: string;
     description: string;

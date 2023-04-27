@@ -1,9 +1,9 @@
-import Options from "../../types/options";
+import Options from "../types/options";
 import compile from "./compile";
 
 const isNode = typeof window === "undefined";
-const fs = isNode ? require("fs") : {};
-const path = isNode ? require("path") : {};
+const fs = isNode && require("fs");
+const path = isNode && require("path");
 
 let defaultDirPath: string = "";
 
@@ -19,6 +19,9 @@ function compileFromFile(
   data: Record<string, unknown> = {},
   opts: Options = {}
 ) {
+  if (!isNode)
+    throw new Error("Including file is only available in nodejs environement");
+
   const template = fs.readFileSync(path.resolve(defaultDirPath, file), "utf-8");
 
   if (!defaultDirPath) defaultDirPath = path.dirname(file);

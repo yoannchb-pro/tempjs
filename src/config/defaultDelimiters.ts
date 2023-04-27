@@ -1,4 +1,4 @@
-import Options from "../../types/options";
+import Options from "../types/options";
 
 const defaultDelimiters: Options["delimiters"] = [
   {

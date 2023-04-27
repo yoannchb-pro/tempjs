@@ -1,4 +1,4 @@
-import Options from "../../types/options";
+import Options from "../types/options";
 /**
  * Compile a tempjs template
  * @param template the template
