@@ -16,7 +16,7 @@ function compile(
   template: string,
   data: Record<string, unknown> = {},
   opts: Options = {}
-): string {
+): string | Promise<string> {
   opts = Object.assign(defaultOptions, opts);
 
   opts.delimiters = (opts.delimiters ?? []).concat(defaultDelimiters);

@@ -6,7 +6,7 @@ import Options from "../types/options";
  * @param opts compile options
  * @returns
  */
-declare function compile(template: string, data?: Record<string, unknown>, opts?: Options): string;
+declare function compile(template: string, data?: Record<string, unknown>, opts?: Options): string | Promise<string>;
 /**
  * Compile from a file content
  * @param file file path
@@ -14,7 +14,7 @@ declare function compile(template: string, data?: Record<string, unknown>, opts?
  * @param opts compile options
  * @returns
  */
-declare function compileFromFile(file: string, data?: Record<string, unknown>, opts?: Options): string;
+declare function compileFromFile(file: string, data?: Record<string, unknown>, opts?: Options): string | Promise<string>;
 declare const _default: {
     compile: typeof compile;
     compileFromFile: typeof compileFromFile;
