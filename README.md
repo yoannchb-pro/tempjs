@@ -88,7 +88,7 @@ await tempjs.compile(
 include(filaname: string, data: Record<string, unknown>, options: Options)
 
 ```
-{% include("header.html", { userName: "Yoann" }) %}
+{%= include("header.html", { userName: "Yoann" }) %}
 ```
 
 ### Additionals delimiters
