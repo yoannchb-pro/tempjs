@@ -13,6 +13,7 @@
       //(await fetch("https://jsonplaceholder.typicode.com/todos/")).json()
       const res = await tempjs.compile(
         `
+        {%% test %}
                 {%
                     const req = await fetch("https://jsonplaceholder.typicode.com/todos/")
                     const todos = await req.json()

@@ -41,4 +41,40 @@ describe("Simple test list", function () {
     );
     expect(result).toBe("<p>Hello</p>");
   });
+
+  it("Skip js instruction - Should skip js instruction", function () {
+    const result = tempjs.compile("{%% console.log('hey') %}");
+    expect(result).toBe("{% console.log('hey') %}");
+  });
+
+  it("Async - Should work with async files", async function () {
+    const result = await tempjs.compile(
+      "<p>{%= await Promise.resolve(greeting) %}</p>",
+      { greeting: 123 },
+      { async: true }
+    );
+    expect(result).toBe("<p>123</p>");
+  });
+
+  it("Debug and minimified - Debug should return not minified code", function () {
+    const minimified = tempjs.debug("<p>Hi</p>");
+    const notMinimified = tempjs.debug("<p>Hi</p>", {}, { minimified: false });
+    expect(
+      minimified.generatedCode === notMinimified.generatedCode
+    ).toBeFalsy();
+  });
+
+  it("Open and close delimiters - Should replace the delimiters by [[]]", function () {
+    const data = { greeting: "Hello" };
+    const result = tempjs.compile(
+      `
+        [[_ if(greeting){ _]]
+            <p>[[= greeting ]]</p>
+        [[_ } _]]
+    `,
+      data,
+      { openDelimiter: "[[", closeDelimiter: "]]" }
+    );
+    expect(result).toBe("<p>Hello</p>");
+  });
 });
