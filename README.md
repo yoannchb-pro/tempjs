@@ -31,6 +31,7 @@ const todos = ["Make a chatbot", "Eat an apple", "Do some sports"];
 const data = { todos };
 document.body.innerHTML = tempjs.compile(
   `
+    {%# I'm just a comment dont worry %}
     <ul>
         {% let index = 0 %}
         {% for(const todo of todos){ %}    
@@ -77,5 +78,89 @@ tempjs.compile(
 
 ## Usage
 
+### API
+
 - tempjs.compile(template: string, data: Record<string, unknown>, options: Options)
 - tempjs.compileFromFile(filePath: string, data: Record<string, unknown>, options: Options)
+
+### Include other template into the current
+
+> NOTE: Only available in nodejs
+
+```
+{% include("header.html", { userName: "Yoann" }) %}
+```
+
+### Custom delimiters
+
+#### Return a value
+
+```
+{% my-variable %}
+```
+
+#### Writing comments
+
+```
+{%# Simple comment %}
+```
+
+### Options
+
+```ts
+type Options = {
+  openDelimiter?: string;
+  closeDelimiter?: string;
+  context?: unknown;
+  async?: boolean;
+  delimiters?: {
+    name: string;
+    description: string;
+    delimiter: string;
+    fn: (content: string) => string;
+  }[];
+  plugins?: { name: string; description: string; fn: Function }[];
+};
+```
+
+- <b>openDelimiter</b> (default: {%) : Open delimiter
+- <b>closeDelimiter</b> (default: %}) : Close delimiter
+- <b>context</b> : Context of the function
+- <b>async</b> : Make asynchronous requests in the template
+- <b>delimiters</b> : Create customs delimiters. By default you have:
+
+```
+= return a value
+# create a comment
+```
+
+Example of implementation:
+
+```js
+{
+    name: "comment",
+    description: "Shortcut to turn some code into a comment",
+    delimiter: "#",
+    fn: function (content) {
+      return "/*" + content + "*/";
+    },
+  }
+```
+
+- <b>plugins</b> : Create custom acessibles function into the template. By default you have "include" that allow you to render other template into the current template:
+
+```
+include(filaname: string, data: Record<string, unknown, options: Options)
+```
+
+Example of implementation:
+
+```ts
+  {
+    name: "truncat",
+    description: "Truncat some text",
+    fn: function(text: string, size: number){
+        return text.substring(0, size);
+    },
+  },
+```
