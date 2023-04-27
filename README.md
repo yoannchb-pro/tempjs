@@ -48,7 +48,7 @@ document.body.innerHTML = tempjs.compile(
 );
 ```
 
-## Async
+## Simple example with async
 
 Working with async is pretty simple
 
@@ -74,8 +74,8 @@ await tempjs.compile(
 
 ### API
 
-- tempjs.compile(template: string, data: Record<string, unknown>, options: Options)
-- tempjs.compileFromFile(filePath: string, data: Record<string, unknown>, options: Options)
+- tempjs.compile(template: string, data: Record<string, unknown>, options: Options): string | Promise<string>
+- tempjs.compileFromFile(filePath: string, data: Record<string, unknown>, options: Options): string | Promise<string>
 
 ### Include other template into the current
 
