@@ -81,11 +81,13 @@ await tempjs.compile(
 
 > NOTE: Only available in nodejs
 
+include(filaname: string, data: Record<string, unknown>, options: Options)
+
 ```
 {% include("header.html", { userName: "Yoann" }) %}
 ```
 
-### Custom delimiters
+### Additionals delimiters
 
 #### Return a value
 
