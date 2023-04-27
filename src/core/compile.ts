@@ -1,5 +1,5 @@
 import Options from "../types/options";
-import createFunction from "./createFunction";
+import debug from "./debug";
 
 /**
  * Compile a tempjs template
@@ -8,12 +8,12 @@ import createFunction from "./createFunction";
  * @param opts compiler options
  * @returns
  */
-function compile<O extends Options = {}>(
+function compile<O extends Options>(
   template: string,
   data: Record<string, unknown> = {},
-  opts: O
-): O["async"] extends true ? Promise<string> : string {
-  return createFunction(template, data, opts)() as any;
+  opts: O = {} as O
+) {
+  return debug<typeof opts>(template, data, opts).generatedFunction();
 }
 
 export default compile;

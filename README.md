@@ -93,6 +93,16 @@ include(filaname: string, data: Record<string, unknown>, options: Options)
 
 ### Additionals delimiters
 
+#### Remove white spaces
+
+```html
+{%_ if(5 > 0){ _%}
+<h1>Five is greater than 0</h1>
+{%_ } _%}
+```
+
+Should compile as follow: `<h1>Five is greater than 0</h1>`
+
 #### Return a value
 
 ```html
