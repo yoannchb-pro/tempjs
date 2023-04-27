@@ -90,7 +90,8 @@ await tempjs.compile(
 #### Return a value
 
 ```
-{% my-variable %}
+{% const greeting = "Hello World" %}
+{%= greeting %}
 ```
 
 #### Writing comments
@@ -144,7 +145,7 @@ Example of implementation:
 - <b>plugins</b> : Create custom acessibles function into the template. By default you have "include" that allow you to render other template into the current template:
 
 ```
-include(filaname: string, data: Record<string, unknown, options: Options)
+include(filaname: string, data: Record<string, unknown>, options: Options)
 ```
 
 Example of implementation:
