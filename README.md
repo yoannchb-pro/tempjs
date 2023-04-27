@@ -22,7 +22,7 @@ import tempjs from "tempsjs";
 
 ## Simple example
 
-> NOTE: You can use any javascript syntax into the template just ensure to use <b>=</b> operator if you want to return some thing and <b>not return</b>
+> NOTE: You can use any javascript syntax into the template just ensure to use <b>=</b> operator if you want to return something (<b>never use return</b>)
 
 In this example we render a list and apply a color on the index
 
