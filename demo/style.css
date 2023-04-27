@@ -1,0 +1,43 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+  font-size: 1.1rem;
+}
+
+body {
+  display: flex;
+  height: 100vh;
+}
+
+section,
+iframe {
+  flex: 1 1;
+  height: 100%;
+}
+
+iframe {
+  border: thin solid #000;
+}
+
+textarea {
+  padding: 0.5rem;
+  word-wrap: break-word;
+  overflow-y: auto;
+  resize: none;
+  border: thin solid #000;
+}
+
+section {
+  display: flex;
+  flex-direction: column;
+}
+
+section #editor {
+  flex: 1 1;
+}
+
+section #data {
+  height: 10rem;
+}
