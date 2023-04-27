@@ -141,6 +141,8 @@ type Options = {
 
 Example of implementation:
 
+> Comment
+
 ```js
 {
     name: "comment",
@@ -150,6 +152,19 @@ Example of implementation:
       return "/*" + content + "*/";
     },
   }
+```
+
+> Return value
+
+```js
+{
+    name: "return",
+    description: "Allow user to add variable to the output",
+    delimiter: "=",
+    fn: function (content) {
+      return "$__output += " + content;
+    },
+},
 ```
 
 - <b>plugins</b> : Create custom acessibles function into the template. By default you have "include" that allow you to render other template into the current template:
