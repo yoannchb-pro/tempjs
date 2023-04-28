@@ -22,7 +22,10 @@ const defaultDelimiters: Options["delimiters"] = [
     description: "Output the instruction as text with delimiters",
     delimiter: "%",
     fn: function (content, options) {
-      return `$__output += "${options.openDelimiter}${content}${options.closeDelimiter}"`;
+      return `$__output += "${options.openDelimiter}${content.replace(
+        /"/gi,
+        '\\"'
+      )}${options.closeDelimiter}"`;
     },
   },
 ];
