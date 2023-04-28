@@ -23,10 +23,18 @@ data.value = JSON.stringify(defaultDatas, undefined, 4);
 iframe.srcdoc = defaultRender;
 
 function updateView() {
-  iframe.srcdoc = tempjs.compile(
-    editorArea.getValue(),
-    JSON.parse(dataArea.getValue())
-  );
+  try {
+    const res = tempjs.compile(
+      editorArea.getValue(),
+      JSON.parse(dataArea.getValue())
+    );
+    iframe.srcdoc = res;
+  } catch (e) {
+    iframe.srcdoc = `
+    <h1>Error while compiling the template</h1>
+    <pre>${e.message}</pre>
+    `;
+  }
 }
 
 const editorArea = CodeMirror.fromTextArea(editor, {
