@@ -22,6 +22,8 @@ function compileFromFile<O extends Options>(
   if (!isNode)
     throw new Error("Including file is only available in nodejs environement");
 
+  if (opts.root) file = path.resolve(opts.root, file);
+
   const template = fs.readFileSync(path.resolve(defaultDirPath, file), "utf-8");
 
   if (!defaultDirPath) defaultDirPath = path.dirname(file);

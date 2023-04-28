@@ -97,6 +97,36 @@ describe("Simple test list", function () {
     );
   });
 
+  it("Root - Should include some files with a specified root", function () {
+    const result = tempjs.compile(
+      "{%= include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>",
+      {
+        greeting: "Hello",
+        username: "Yoann",
+        root: path.resolve(__dirname, "./templates"),
+      }
+    );
+    expect(result).toBe(
+      "<header>Yoann</header><h1>Hello</h1><p>Welcome to tempjs</p>"
+    );
+  });
+
+  it("Multiple includes - Should include some files with", function () {
+    const result = tempjs.compile(
+      `{%= include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>
+{%= include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>`,
+      {
+        greeting: "Hello",
+        username: "Yoann",
+        root: path.resolve(__dirname, "./templates"),
+      }
+    );
+    expect(result).toBe(
+      `<header>Yoann</header><h1>Hello</h1><p>Welcome to tempjs</p>
+<header>Yoann</header><h1>Hello</h1><p>Welcome to tempjs</p>`
+    );
+  });
+
   it("Custom Plugin - Should create a custom plugin", function () {
     const result = tempjs.compile(
       "<p>{%= truncat('Hello My Name is Yoann', 5) %}</p>",

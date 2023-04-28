@@ -4,6 +4,7 @@ type Options = {
     context?: unknown;
     async?: boolean;
     minimified?: boolean;
+    root?: string;
     delimiters?: {
         name: string;
         description: string;

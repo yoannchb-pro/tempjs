@@ -1,4 +1,3 @@
 - Fixe types for async
-- Add root option
 - Documentation
 - demo

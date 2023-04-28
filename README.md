@@ -139,11 +139,12 @@ type Options = {
   context?: unknown;
   async?: boolean;
   minimified?: boolean;
+  root?: string;
   delimiters?: {
     name: string;
     description: string;
     delimiter: string;
-    fn: (content: string) => string;
+    fn: (content: string, options: Options) => string;
   }[];
   plugins?: { name: string; description: string; fn: Function }[];
 };
@@ -154,6 +155,7 @@ type Options = {
 - <b>context</b> (default: null) : Context of the function
 - <b>async</b> (default: false) : Make asynchronous requests in the template
 - <b>minimified</b> (default: true) : Make the generated code more readable in debug mode
+- <b>root</b> (default: null): Specifie a root directory for including files
 - <b>delimiters</b> : Create customs delimiters. By default you have:
 
 ```
