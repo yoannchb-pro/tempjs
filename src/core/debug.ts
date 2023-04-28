@@ -43,7 +43,7 @@ function debug<O extends Options>(
   opts.delimiters = (opts.delimiters ?? []).concat(defaultDelimiters);
   opts.plugins = (opts.plugins ?? []).concat(defaultPlugins);
 
-  const generatedCode: string[] = ["let $__output=''"];
+  const generatedCode: string[] = ["'use strict'", "let $__output=''"];
   const delimiterRegex = new RegExp(
     String.raw`(\n?[\s\t]*${unescapeRegex(
       opts.openDelimiter
