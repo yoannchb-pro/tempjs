@@ -2,6 +2,26 @@
 
 TEMPJS is a fast, low code and no dependencies templating langage where you can use javascript inside html !
 
+## Table of content
+
+- [tempjs](#tempjs)
+  - [Table of content](#table-of-content)
+  - [Update](#update)
+  - [Installation](#installation)
+  - [Import](#import)
+  - [Simple example](#simple-example)
+  - [Simple example with async](#simple-example-with-async)
+  - [Usage](#usage)
+    - [API](#api)
+    - [Include other template into the current](#include-other-template-into-the-current)
+    - [Other Tags](#other-tags)
+      - [Remove white spaces](#remove-white-spaces)
+    - [Additionals delimiters](#additionals-delimiters)
+      - [Return a value](#return-a-value)
+      - [Writing comments](#writing-comments)
+      - [Skip js instruction](#skip-js-instruction)
+    - [Options](#options)
+
 ## Update
 
 See the [CHANGELOG](./CHANGELOG.md) file
@@ -135,7 +155,7 @@ console.log("I ll not show") %}
 
 Should compile as follow: `<h1>I love Tempjs</h1>`
 
-### Skip js instruction
+#### Skip js instruction
 
 ```
 {%% gretting %}
