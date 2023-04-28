@@ -99,10 +99,13 @@ include(filaname: string, data: Record<string, unknown>, options: Options)
 
 #### Remove white spaces
 
+- `{%_` Remove white spaces before the first delimiter
+- `_%}` Remove white spaces after the last delimiter
+
 ```html
 {%_ if(5 > 0){ _%}
 <h1>Five is greater than 0</h1>
-{%_ } _%}
+{%_ } %}
 ```
 
 Should compile as follow: `<h1>Five is greater than 0</h1>`
