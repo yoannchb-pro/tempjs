@@ -10,10 +10,10 @@ import debug from "./debug";
  */
 function createFunction<O extends Options>(
   template: string,
-  data: Record<string, unknown> = {},
-  opts: O = {} as O
+  data?: Record<string, unknown>,
+  opts?: O
 ) {
-  return debug<typeof opts>(template, data, opts).generatedFunction;
+  return debug(template, data, opts).generatedFunction;
 }
 
 export default createFunction;

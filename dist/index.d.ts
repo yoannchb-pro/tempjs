@@ -24,7 +24,7 @@ type Options = {
  * @param opts compiler options
  * @returns
  */
-declare function compile<O extends Options>(template: string, data?: Record<string, unknown>, opts?: O): string;
+declare function compile<O extends Options>(template: string, data?: Record<string, unknown>, opts?: O): O["async"] extends true ? Promise<string> : string;
 /**
  * Compile from a file content
  * @param file file path
@@ -32,12 +32,12 @@ declare function compile<O extends Options>(template: string, data?: Record<stri
  * @param opts compile options
  * @returns
  */
-declare function compileFromFile<O extends Options>(file: string, data?: Record<string, unknown>, opts?: O): string;
-type DebugResult<T extends Options> = {
+declare function compileFromFile<O extends Options>(file: string, data?: Record<string, unknown>, opts?: O): O["async"] extends true ? Promise<string> : string;
+type DebugResult<O extends Options> = {
     template: string;
-    options: T;
+    options: O;
     data: Record<string, unknown>;
-    generatedFunction: T extends Options ? T["async"] extends true ? () => Promise<string> : () => string : never;
+    generatedFunction: O["async"] extends true ? () => Promise<string> : () => string;
     generatedCode: string;
     dataListName: string[];
     dataListValue: unknown[];
@@ -59,7 +59,7 @@ declare function debug<O extends Options>(template: string, data?: Record<string
  * @param opts compiler options
  * @returns
  */
-declare function createFunction<O extends Options>(template: string, data?: Record<string, unknown>, opts?: O): O extends Options ? O["async"] extends true ? () => Promise<string> : () => string : never;
+declare function createFunction<O extends Options>(template: string, data?: Record<string, unknown>, opts?: O): O["async"] extends true ? () => Promise<string> : () => string;
 declare const _default: {
     compile: typeof compile;
     compileFromFile: typeof compileFromFile;

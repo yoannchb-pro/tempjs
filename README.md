@@ -78,8 +78,10 @@ await tempjs.compile(
 
 ### API
 
-- tempjs.compile(template: string, data: Record<string, unknown>, options: Options): string | Promise<string>
-- tempjs.compileFromFile(filePath: string, data: Record<string, unknown>, options: Options): string | Promise<string>
+- <b>tempjs.compile</b>(template: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
+- <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
+- <b>tempjs.createFunction</b>(filePath: string, data: Record\<string, unknown\>, options: Options): () => string | Promise\<string\>
+- <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): { template, options, data, generatedFunction, generatedCode, dataListName, dataListValue, pluginsName, pluginsFunctions }
 
 ### Include other template into the current
 
@@ -205,7 +207,7 @@ Example of implementation:
     name: "truncat",
     description: "Truncat some text",
     fn: function(text: string, size: number){
-        return text.substring(0, size);
+        return text.trim().substring(0, size);
     },
   },
 ```

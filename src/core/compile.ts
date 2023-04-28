@@ -10,10 +10,10 @@ import debug from "./debug";
  */
 function compile<O extends Options>(
   template: string,
-  data: Record<string, unknown> = {},
-  opts: O = {} as O
-) {
-  return debug<typeof opts>(template, data, opts).generatedFunction();
+  data?: Record<string, unknown>,
+  opts?: O
+): O["async"] extends true ? Promise<string> : string {
+  return debug(template, data, opts).generatedFunction() as any;
 }
 
 export default compile;

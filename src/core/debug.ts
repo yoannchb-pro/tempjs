@@ -3,15 +3,13 @@ import defaultOptions from "../config/defaultOptions";
 import defaultPlugins from "../config/defaultPlugins";
 import Options from "../types/options";
 
-type DebugResult<T extends Options> = {
+type DebugResult<O extends Options> = {
   template: string;
-  options: T;
+  options: O;
   data: Record<string, unknown>;
-  generatedFunction: T extends Options
-    ? T["async"] extends true
-      ? () => Promise<string>
-      : () => string
-    : never;
+  generatedFunction: O["async"] extends true
+    ? () => Promise<string>
+    : () => string;
   generatedCode: string;
   dataListName: string[];
   dataListValue: unknown[];
@@ -35,9 +33,12 @@ function unescapeRegex(str: string) {
  */
 function debug<O extends Options>(
   template: string,
-  data: Record<string, unknown> = {},
-  opts: O = {} as O
-) {
+  data?: Record<string, unknown>,
+  opts?: O
+): DebugResult<O> {
+  data = data ?? {};
+
+  opts = opts ?? ({} as O);
   opts = Object.assign({}, defaultOptions, opts);
   opts.delimiters = (opts.delimiters ?? []).concat(defaultDelimiters);
   opts.plugins = (opts.plugins ?? []).concat(defaultPlugins);
@@ -114,7 +115,7 @@ function debug<O extends Options>(
     dataListValue,
     pluginsName,
     pluginsFunctions,
-  } as DebugResult<O>;
+  };
 }
 
 export default debug;

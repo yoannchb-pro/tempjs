@@ -1,3 +1,1 @@
-- Fixe types for async
-- Documentation
 - demo
