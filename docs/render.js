@@ -2,7 +2,7 @@ const editor = document.querySelector("#editor");
 const data = document.querySelector("#data");
 const iframe = document.querySelector("#view");
 
-const defaultTemplate = `<h1>{%= gretting %}</h1>
+const defaultTemplate = `<h1>{%= greeting %}</h1>
 <p>It is a simplified version. See the <a target="_blank" href="https://github.com/yoannchb-pro/tempjs">documentation</a> for the full version</p>
 <p>If you are on mobile you can see the editor below otherwise on the left</p>
 <p>It remain {%= todos.length %} items in my todo list:</p>
@@ -13,7 +13,7 @@ const defaultTemplate = `<h1>{%= gretting %}</h1>
 </ul>
 `;
 const defaultDatas = {
-  gretting: "Welcome to the live demo of tempjs!",
+  greeting: "Welcome to the live demo of tempjs!",
   todos: ["Understand tempjs", "Learn typescript", "Make a cake"],
 };
 const defaultRender = tempjs.compile(defaultTemplate, defaultDatas);
