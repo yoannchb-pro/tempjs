@@ -84,7 +84,6 @@ function debug<O extends Options>(
     if (customDelimiter) {
       jsInstruction = customDelimiter.fn(jsInstruction.substring(1), opts);
     }
-    console.log(jsInstruction, delimiterRegex);
     generatedCode.push(jsInstruction);
 
     if (!removeEndWhiteSpace)

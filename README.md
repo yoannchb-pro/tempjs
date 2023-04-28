@@ -6,6 +6,7 @@ TEMPJS is a fast, low code and no dependencies templating langage where you can 
 
 - [tempjs](#tempjs)
   - [Table of content](#table-of-content)
+  - [Demo](#demo)
   - [Update](#update)
   - [Installation](#installation)
   - [Import](#import)
@@ -21,6 +22,10 @@ TEMPJS is a fast, low code and no dependencies templating langage where you can 
       - [Writing comments](#writing-comments)
       - [Skip js instruction](#skip-js-instruction)
     - [Options](#options)
+
+## Demo
+
+See a simplified live editor on the [github page](https://yoannchb-pro.github.io/tempjs/demo/index.html)
 
 ## Update
 

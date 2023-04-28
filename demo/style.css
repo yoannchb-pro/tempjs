@@ -15,18 +15,11 @@ section,
 iframe {
   flex: 1 1;
   height: 100%;
+  width: 50%;
 }
 
 iframe {
-  border: thin solid #000;
-}
-
-textarea {
-  padding: 0.5rem;
-  word-wrap: break-word;
-  overflow-y: auto;
-  resize: none;
-  border: thin solid #000;
+  border: thin solid gray;
 }
 
 section {
@@ -34,10 +27,14 @@ section {
   flex-direction: column;
 }
 
-section #editor {
-  flex: 1 1;
-}
+@media (max-width: 1024px) {
+  body {
+    flex-direction: column-reverse;
+    height: 200vh;
+  }
 
-section #data {
-  height: 15rem;
+  section,
+  iframe {
+    width: 100%;
+  }
 }
