@@ -55,9 +55,14 @@ describe("Simple test list", function () {
     expect(result).toBe("Hello");
   });
 
-  it("Skip js instruction - Should skip js instruction", function () {
-    const result = tempjs.compile("{%% console.log('hey') %}");
-    expect(result).toBe("{% console.log('hey') %}");
+  it("Skip js instruction - Should skip js instruction with string characters", function () {
+    const result = tempjs.compile(`{%% console.log("hey") %}`);
+    expect(result).toBe(`{% console.log("hey") %}`);
+  });
+
+  it("Skip js instruction 2 - Should skip js instruction with string characters", function () {
+    const result = tempjs.compile(`{%%= greeting %}`);
+    expect(result).toBe(`{%= greeting %}`);
   });
 
   it("Debug and minimified - Debug should return not minified code", function () {
