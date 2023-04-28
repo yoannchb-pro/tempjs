@@ -35,6 +35,7 @@ const todos = ["Make a chatbot", "Eat an apple", "Do some sports"];
 const data = { todos };
 document.body.innerHTML = tempjs.compile(
   `
+    {%= include("header.html", { userName: "Yoann" }, { root: "./header" }) %}
     {%# I'm just a comment dont worry %}
     <ul>
         {% let index = 0 %}
@@ -47,6 +48,7 @@ document.body.innerHTML = tempjs.compile(
             {% ++index %}
         {% } %}
     </ul>
+    {%= include("footer.html") %}
     `,
   data
 );
@@ -95,9 +97,11 @@ include(filaname: string, data: Record<string, unknown>, options: Options)
 {%= include("header.html", { userName: "Yoann" }) %}
 ```
 
-### Additionals delimiters
+### Other Tags
 
 #### Remove white spaces
+
+> NOTE: It can be combined with custom delimiters (example: {%_# I'm a comment _%})
 
 - `{%_` Remove white spaces before the first delimiter
 - `_%}` Remove white spaces after the last delimiter
@@ -109,6 +113,8 @@ include(filaname: string, data: Record<string, unknown>, options: Options)
 ```
 
 Should compile as follow: `<h1>Five is greater than 0</h1>`
+
+### Additionals delimiters
 
 #### Return a value
 
