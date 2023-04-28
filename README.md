@@ -163,10 +163,10 @@ Should compile as follow: `<h1>I love Tempjs</h1>`
 #### Skip js instruction
 
 ```
-{%% gretting %}
+{%% greeting %}
 ```
 
-Should compile as follow: `{% gretting %}`
+Should compile as follow: `{% greeting %}`
 
 ### Options
 
