@@ -78,6 +78,8 @@ await tempjs.compile(
 
 ### API
 
+> NOTE: The return type is calculed on the options so it will be automatically set to string or Promise\<string\>. Below is just a simplified version of the return type.
+
 - <b>tempjs.compile</b>(template: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
 - <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
 - <b>tempjs.createFunction</b>(filePath: string, data: Record\<string, unknown\>, options: Options): () => string | Promise\<string\>
