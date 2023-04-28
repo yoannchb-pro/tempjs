@@ -10,7 +10,7 @@ module.exports = {
     {
       file: pkg.main,
       format: "umd",
-      name: pkg.name,
+      name: "tempjs",
       sourcemap: true,
     },
   ],
