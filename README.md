@@ -34,19 +34,19 @@ See the [CHANGELOG](./CHANGELOG.md) file
 ## Installation
 
 ```
-$ npm i tempjs
+$ npm i tempjs-template
 ```
 
 Or directly in the browser with
 
 ```html
-<script src="https://unpkg.com/tempjs@1.0.0/dist/index.js"></script>
+<script src="https://unpkg.com/tempjs-template@1.0.0/dist/index.js"></script>
 ```
 
 ## Import
 
 ```ts
-import tempjs from "tempsjs";
+import tempjs from "tempjs-template";
 ```
 
 ## Simple example
