@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.4
+
+- Little README update
+
 ## v1.0.3
 
 - Fixed mobile compatibility (no more error on "at")
