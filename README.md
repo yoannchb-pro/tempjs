@@ -42,7 +42,7 @@ $ npm i tempjs-template
 Or directly in the browser with
 
 ```html
-<script src="https://unpkg.com/tempjs-template@1.0.4/dist/index.js"></script>
+<script src="https://unpkg.com/tempjs-template@1.0.5/dist/index.js"></script>
 ```
 
 ## Import
@@ -66,7 +66,7 @@ document.body.innerHTML = tempjs.compile(
     <ul>
         {% let index = 0 %}
         {% for(const todo of todos){ %}    
-            <li style="{%= index%2 === 0 ? "red" : "green" %}">{%= todo %}</li>
+            <li style="color: {%= index%2 === 0 ? "red" : "green" %}">{%= todo %}</li>
             {% ++index %}
         {% } %}
     </ul>

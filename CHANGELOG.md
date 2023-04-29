@@ -1,5 +1,9 @@
 # Changelog
 
+## v1.0.5
+
+- Little README update
+
 ## v1.0.4
 
 - Little README update
