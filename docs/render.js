@@ -1,4 +1,4 @@
-(async function () {
+async function init() {
   const editor = document.querySelector("#editor");
   const data = document.querySelector("#data");
   const iframe = document.querySelector("#view");
@@ -56,4 +56,6 @@
   const areas = document.querySelectorAll(".cm-s-default");
   areas[0].style.flex = "1 1";
   areas[1].style.height = "15rem";
-})();
+}
+
+init();
