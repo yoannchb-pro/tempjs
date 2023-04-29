@@ -107,7 +107,7 @@ await tempjs.compile(
 - <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
 - <b>tempjs.compileFromFileBrowser</b>(filePath: string, data: Record\<string, unknown\>, options: Options): Promise\<string\>
 - <b>tempjs.createFunction</b>(filePath: string, data: Record\<string, unknown\>, options: Options): () => string | Promise\<string\>
-- <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): { template, options, data, generatedFunction, generatedCode, dataListName, dataListValue, pluginsName, pluginsFunctions }
+- <b>tempjs.debug</b>(filePath: string, data: Record\<string, unknown\>, options: Options): { template, options, data, generatedFunction, generatedCode, dataListName, dataListValue, pluginsName, pluginsFunctions }
 
 ### Include other template into the current
 
