@@ -1,3 +1,10 @@
+function errorToHTML(err) {
+  return `
+    <h1>Error while compiling the template</h1>
+    <pre>${err.message}</pre>
+    `;
+}
+
 async function init() {
   const editor = document.querySelector("#editor");
   const data = document.querySelector("#data");
@@ -17,9 +24,13 @@ async function init() {
     greeting: "Welcome to the live demo of tempjs!",
     todos: ["Understand tempjs", "Learn typescript", "Make a cake"],
   };
-  const defaultRender = await tempjs.compile(defaultTemplate, defaultDatas, {
-    async: true,
-  });
+  const defaultRender = await tempjs
+    .compile(defaultTemplate, defaultDatas, {
+      async: true,
+    })
+    .catch((err) => {
+      return errorToHTML(err);
+    });
 
   editor.value = defaultTemplate;
   data.value = JSON.stringify(defaultDatas, undefined, 4);
@@ -33,11 +44,8 @@ async function init() {
         { async: true }
       );
       iframe.srcdoc = res;
-    } catch (e) {
-      iframe.srcdoc = `
-    <h1>Error while compiling the template</h1>
-    <pre>${e.message}</pre>
-    `;
+    } catch (err) {
+      iframe.srcdoc = errorToHTML(err);
     }
   }
 
