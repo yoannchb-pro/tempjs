@@ -66,7 +66,7 @@ document.body.innerHTML = tempjs.compile(
     <ul>
         {% let index = 0 %}
         {% for(const todo of todos){ %}    
-            <li style="{% index%2 === 0 ? "red" : "green" %}">{%= todo %}</li>
+            <li style="{%= index%2 === 0 ? "red" : "green" %}">{%= todo %}</li>
             {% ++index %}
         {% } %}
     </ul>
