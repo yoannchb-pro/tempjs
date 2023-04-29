@@ -6,7 +6,7 @@
  */
 function resolvePath(path: string, file: string): string {
   const splittedPath = document.location.pathname.split("/");
-  if (splittedPath.at(-1).includes(".")) splittedPath.pop();
+  if (splittedPath[splittedPath.length - 1]?.includes(".")) splittedPath.pop();
   const absolutePath = splittedPath.join("/");
 
   path = path.replace(/^\.?\//g, "/").replace(/\/$/g, "");
