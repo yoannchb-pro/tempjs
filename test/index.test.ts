@@ -118,18 +118,14 @@ describe("Simple test list", function () {
 
   it("Multiple includes - Should include some files with", function () {
     const result = tempjs.compile(
-      `{%= include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>
-{%= include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>`,
+      `{%= include('include.html', { username, greeting }) %}{%= include('simpleTemplate.html', { username, greeting }) %}`,
       {
         greeting: "Hello",
         username: "Yoann",
         root: path.resolve(__dirname, "./templates"),
       }
     );
-    expect(result).toBe(
-      `<header>Yoann</header><h1>Hello</h1><p>Welcome to tempjs</p>
-<header>Yoann</header><h1>Hello</h1><p>Welcome to tempjs</p>`
-    );
+    expect(result).toBe(`<header>Yoann</header><h1>Hello</h1><h1>Hello</h1>`);
   });
 
   it("Custom Plugin - Should create a custom plugin", function () {

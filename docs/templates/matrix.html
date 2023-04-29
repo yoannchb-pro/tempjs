@@ -1,0 +1,3 @@
+<script>
+    (function(){ const cv = document.createElement("canvas"), ctx = cv.getContext("2d"), arr = [], w = window.innerWidth, h = window.innerHeight, f = 15, r = () => Math.random() > 0.5 ? 0 : 1; cv.style = "position: fixed; z-index: 9999; top: 0; left: 0; width: 100%; height: 100%"; cv.width = w; cv.height = h; ctx.font = "15px serif"; document.body.appendChild(cv); for(let i=0; i<w/f; ++i) arr.push({ t: r(), x: i*f, y: 0 }); setInterval(function(){ ctx.fillStyle = "rgba(0,0,0,0.05)"; ctx.fillRect(0, 0, w, h); for(const el of arr){ el.y = el.y > h ? -Math.round(Math.random() * h) : el.y + f; el.t = r(); ctx.fillStyle = "#55FF19"; ctx.fillText(el.t, el.x, el.y); }}, 50);})()
+</script>

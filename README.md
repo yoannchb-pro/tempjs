@@ -15,6 +15,8 @@ TEMPJS is a fast, low code and no dependencies templating langage where you can 
   - [Usage](#usage)
     - [API](#api)
     - [Include other template into the current](#include-other-template-into-the-current)
+      - [Include from nodejs](#include-from-nodejs)
+      - [Include from browser](#include-from-browser)
     - [Other Tags](#other-tags)
       - [Remove white spaces](#remove-white-spaces)
     - [Additionals delimiters](#additionals-delimiters)
@@ -40,7 +42,7 @@ $ npm i tempjs-template
 Or directly in the browser with
 
 ```html
-<script src="https://unpkg.com/tempjs-template@1.0.1/dist/index.js"></script>
+<script src="https://unpkg.com/tempjs-template@1.0.2/dist/index.js"></script>
 ```
 
 ## Import
@@ -60,20 +62,14 @@ const todos = ["Make a chatbot", "Eat an apple", "Do some sports"];
 const data = { todos };
 document.body.innerHTML = tempjs.compile(
   `
-    {%= include("header.html", { userName: "Yoann" }, { root: "./header" }) %}
     {%# I'm just a comment dont worry %}
     <ul>
         {% let index = 0 %}
         {% for(const todo of todos){ %}    
-            {% if(index%2 === 0) { %} 
-                <li style="color: red">{%= todo.title %}</li>
-            {% } else { %}
-                <li style="color: green">{%= todo.title %}</li>
-            {% } %}
+            <li style="{% index%2 === 0 ? "red" : "green" %}">{%= todo.title %}</li>
             {% ++index %}
         {% } %}
     </ul>
-    {%= include("footer.html") %}
     `,
   data
 );
@@ -109,17 +105,28 @@ await tempjs.compile(
 
 - <b>tempjs.compile</b>(template: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
 - <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): string | Promise\<string\>
+- <b>tempjs.compileFromFileBrowser</b>(filePath: string, data: Record\<string, unknown\>, options: Options): Promise\<string\>
 - <b>tempjs.createFunction</b>(filePath: string, data: Record\<string, unknown\>, options: Options): () => string | Promise\<string\>
 - <b>tempjs.compileFromFile</b>(filePath: string, data: Record\<string, unknown\>, options: Options): { template, options, data, generatedFunction, generatedCode, dataListName, dataListValue, pluginsName, pluginsFunctions }
 
 ### Include other template into the current
 
-> NOTE: Only available in nodejs
+#### Include from nodejs
 
-include(filaname: string, data: Record<string, unknown>, options: Options)
+include(filaname: string, data: Record<string, unknown>, options: Options): string | Promise\<string\>
 
 ```
 {%= include("header.html", { userName: "Yoann" }) %}
+```
+
+#### Include from browser
+
+> NOTE: Don't forget to set the option "async: true" if the file also have an includeBrowser
+
+includeBrowser(filaname: string, data: Record<string, unknown>, options: Options): Promise\<string\>
+
+```
+{%= await includeBrowser("header.html", { userName: "Yoann" }) %}
 ```
 
 ### Other Tags
@@ -204,7 +211,7 @@ type Options = {
 
 Examples of implementation:
 
-> Comment
+- Comment
 
 ```js
 {
@@ -217,7 +224,7 @@ Examples of implementation:
   }
 ```
 
-> Return value
+- Return value
 
 ```js
 {
@@ -230,10 +237,11 @@ Examples of implementation:
 },
 ```
 
-- <b>plugins</b> : Create custom acessibles function into the template. By default you have "include" that allow you to render other template into the current template:
+- <b>plugins</b> : Create custom acessibles function into the template. By default you have "include" and "includeBrowser" that allow you to render other template into the current template:
 
 ```
-include(filaname: string, data: Record<string, unknown>, options: Options)
+include(filaname: string, data: Record<string, unknown>, options: Options): string | Promise<string>
+includeBrowser(filaname: string, data: Record<string, unknown>, options: Options): Promise<string>
 ```
 
 Example of implementation:

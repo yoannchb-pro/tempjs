@@ -20,7 +20,9 @@ function compileFromFile<O extends Options>(
   opts?: O
 ) {
   if (!isNode)
-    throw new Error("Including file is only available in nodejs environement");
+    throw new Error(
+      "Please use compileFromFileBrowser or includeBrowser instead"
+    );
 
   if (opts?.root) file = path.resolve(opts.root, file);
 

@@ -60,9 +60,18 @@ declare function debug<O extends Options>(template: string, data?: Record<string
  * @returns
  */
 declare function createFunction<O extends Options>(template: string, data?: Record<string, unknown>, opts?: O): O["async"] extends true ? () => Promise<string> : () => string;
+/**
+ * Compile from a file content
+ * @param file file path
+ * @param data data used in the file
+ * @param opts compile options
+ * @returns
+ */
+declare function compileFromFileBrowser<O extends Options>(file: string, data?: Record<string, unknown>, opts?: O): Promise<O["async"] extends true ? Promise<string> : string>;
 declare const _default: {
     compile: typeof compile;
     compileFromFile: typeof compileFromFile;
+    compileFromFileBrowser: typeof compileFromFileBrowser;
     createFunction: typeof createFunction;
     debug: typeof debug;
 };
