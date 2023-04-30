@@ -10,19 +10,25 @@ async function init() {
   const data = document.querySelector("#data");
   const iframe = document.querySelector("#view");
 
-  const defaultTemplate = `<h1>{%= await includeBrowser("./templates/header.html", { greeting }) %}</h1>
-<p>It is a simplified version. See the <a target="_blank" href="https://github.com/yoannchb-pro/tempjs">documentation</a> for the full version</p>
-<p>If you are on mobile you can see the editor below otherwise on the left</p>
+  const defaultTemplate = `<h1>{%@ await includeBrowser("./templates/header.html", { greeting }) %}</h1>
+<p>It is a simplified version. See the <a target="_blank" href="https://github.com/yoannchb-pro/tempjs">documentation</a> for the full version.</p>
+<p>If you are on mobile you can see the editor below otherwise on the left.</p>
+<p>Use {%% javascript instruction %} inside the template.</p>
+{%_# Below is just a simple example of a todo list %}
 <p>It remain {%= todos.length %} items in my todo list:</p>
 <ul>
     {% for(const todo of todos) { %}
         <li>{%= todo %}</li>
     {% } %}
-</ul>
-`;
+</ul>`;
   const defaultDatas = {
     greeting: "Welcome to the live demo of tempjs!",
-    todos: ["Understand tempjs", "Learn typescript", "Make a cake"],
+    todos: [
+      "Understand tempjs",
+      "Learn typescript",
+      "Make a cake",
+      "<script>alert('XSS injections are not working')</script>",
+    ],
   };
   const defaultRender = await tempjs
     .compile(defaultTemplate, defaultDatas, {

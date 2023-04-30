@@ -1,6 +1,6 @@
 {
   "name": "tempjs-template",
-  "version": "1.0.5",
+  "version": "1.0.6",
   "description": "TEMPJS is a fast, low code and no dependencies templating langage where you can use javascript inside html!",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",

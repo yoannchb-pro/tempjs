@@ -42,4 +42,30 @@ async function readFile(file: string) {
   return (await fetch(file)).text();
 }
 
-export { resolvePath, resolveDirname, readFile };
+/**
+ * Escape HTML XSS injection from a string
+ * @param obj The data we want to escape
+ * @returns
+ */
+function escapeHTML(obj: unknown) {
+  if (typeof obj !== "string") return obj;
+
+  return obj.replace(/[<>&"']/g, (match) => {
+    switch (match) {
+      case "<":
+        return "&lt;";
+      case ">":
+        return "&gt;";
+      case "&":
+        return "&amp;";
+      case "'":
+        return "&#39;";
+      case '"':
+        return "&quot;";
+      default:
+        return match;
+    }
+  });
+}
+
+export { resolvePath, resolveDirname, readFile, escapeHTML };

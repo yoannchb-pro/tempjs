@@ -1,5 +1,4 @@
 import tempjs from "../dist";
-import fs from "fs";
 import path from "path";
 
 describe("Simple test list", function () {
@@ -31,6 +30,17 @@ describe("Simple test list", function () {
     expect(result.includes("Learn tempjs")).toBeFalsy();
   });
 
+  it("XSS injection - Should avoid XSS injection", function () {
+    const data = { greeting: "<p>Hello</p>" };
+    const result = tempjs.compile(
+      `
+       {%_= greeting _%}
+    `,
+      data
+    );
+    expect(result).toBe("&lt;p&gt;Hello&lt;/p&gt;");
+  });
+
   it("White Space - Should remove white spaces", function () {
     const data = { greeting: "Hello" };
     const result = tempjs.compile(
@@ -57,7 +67,7 @@ describe("Simple test list", function () {
 
   it("Skip js instruction - Should skip js instruction with string characters", function () {
     const result = tempjs.compile(`{%% console.log("hey") %}`);
-    expect(result).toBe(`{% console.log("hey") %}`);
+    expect(result).toBe(`{% console.log(&quot;hey&quot;) %}`);
   });
 
   it("Skip js instruction 2 - Should skip js instruction with string characters", function () {
@@ -90,7 +100,7 @@ describe("Simple test list", function () {
 
   it("Include - Should include some files", function () {
     const result = tempjs.compile(
-      "{%= include(path, { username, greeting }) %}<p>Welcome to tempjs</p>",
+      "{%@ include(path, { username, greeting }) %}<p>Welcome to tempjs</p>",
       {
         greeting: "Hello",
         username: "Yoann",
@@ -104,7 +114,7 @@ describe("Simple test list", function () {
 
   it("Root - Should include some files with a specified root", function () {
     const result = tempjs.compile(
-      "{%= include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>",
+      "{%@ include('include.html', { username, greeting }) %}<p>Welcome to tempjs</p>",
       {
         greeting: "Hello",
         username: "Yoann",
@@ -118,7 +128,7 @@ describe("Simple test list", function () {
 
   it("Multiple includes - Should include some files with", function () {
     const result = tempjs.compile(
-      `{%= include('include.html', { username, greeting }) %}{%= include('simpleTemplate.html', { username, greeting }) %}`,
+      `{%@ include('include.html', { username, greeting }) %}{%@ include('simpleTemplate.html', { username, greeting }) %}`,
       {
         greeting: "Hello",
         username: "Yoann",

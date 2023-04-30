@@ -1,5 +1,10 @@
 # Changelog
 
+## v1.0.6
+
+- Prevent XSS injection
+- Added @ custom delimiter to add HTML without escaping HTML
+
 ## v1.0.5
 
 - Little README update

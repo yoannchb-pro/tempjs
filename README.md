@@ -21,7 +21,8 @@ TEMPJS is a fast, low code and no dependencies templating langage where you can 
       - [Remove white spaces](#remove-white-spaces)
     - [Additionals delimiters](#additionals-delimiters)
       - [Return a value](#return-a-value)
-      - [Writing comments](#writing-comments)
+      - [Return a value without escaping HTML](#return-a-value-without-escaping-html)
+      - [Writting comments](#writting-comments)
       - [Skip js instruction](#skip-js-instruction)
     - [Options](#options)
 
@@ -30,6 +31,8 @@ TEMPJS is a fast, low code and no dependencies templating langage where you can 
 See a simplified live editor on the [github page](https://yoannchb-pro.github.io/tempjs/index.html)
 
 ## Update
+
+> NOTE: Use a version upper or equal to 1.0.6 to prevent XSS injection
 
 See the [CHANGELOG](./CHANGELOG.md) file
 
@@ -42,7 +45,7 @@ $ npm i tempjs-template
 Or directly in the browser with
 
 ```html
-<script src="https://unpkg.com/tempjs-template@1.0.5/dist/index.js"></script>
+<script src="https://unpkg.com/tempjs-template@1.0.6/dist/index.js"></script>
 ```
 
 ## Import
@@ -62,13 +65,13 @@ const todos = ["Make a chatbot", "Eat an apple", "Do some sports"];
 const data = { todos };
 document.body.innerHTML = tempjs.compile(
   `
-    {%# I'm just a comment dont worry %}
+    {%_# I'm just a comment dont worry _%}
     <ul>
-        {% let index = 0 %}
-        {% for(const todo of todos){ %}    
+        {%_ let index = 0 _%}
+        {% for(const todo of todos){ _%}    
             <li style="color: {%= index%2 === 0 ? "red" : "green" %}">{%= todo %}</li>
-            {% ++index %}
-        {% } %}
+            {%_ ++index %}
+        {%_ } _%}
     </ul>
     `,
   data
@@ -82,14 +85,14 @@ Working with async is pretty simple
 ```js
 await tempjs.compile(
   `
-    {%
+    {%_
         const req = await fetch("https://jsonplaceholder.typicode.com/todos/")
         const todos = await req.json()
-    %}
+    _%}
     <ul>
-        {% for(const todo of todos){ %}    
+        {%_ for(const todo of todos){ _%}    
             <li>{%= todo.title %}</li>
-        {% } %}
+        {%_ } _%}
     </ul>
     `,
   {},
@@ -116,7 +119,7 @@ await tempjs.compile(
 include(filaname: string, data: Record<string, unknown>, options: Options): string | Promise\<string\>
 
 ```
-{%= include("header.html", { userName: "Yoann" }) %}
+{%@ include("header.html", { userName: "Yoann" }) %}
 ```
 
 #### Include from browser
@@ -126,7 +129,7 @@ include(filaname: string, data: Record<string, unknown>, options: Options): stri
 includeBrowser(filaname: string, data: Record<string, unknown>, options: Options): Promise\<string\>
 
 ```
-{%= await includeBrowser("header.html", { userName: "Yoann" }) %}
+{%@ await includeBrowser("header.html", { userName: "Yoann" }) %}
 ```
 
 ### Other Tags
@@ -139,7 +142,7 @@ includeBrowser(filaname: string, data: Record<string, unknown>, options: Options
 - `_%}` Remove white spaces after the last delimiter
 
 ```html
-{%_ if(5 > 0){ _%}
+{% if(5 > 0){ _%}
 <h1>Five is greater than 0</h1>
 {%_ } %}
 ```
@@ -157,7 +160,18 @@ Should compile as follow: `<h1>Five is greater than 0</h1>`
 
 Should compile as follow: `<h1>Hello World!</h1>`
 
-#### Writing comments
+#### Return a value without escaping HTML
+
+> **XSS injection**: Only use this with include/includeBrowser or if you are sure about what you are doing
+
+```
+{% const greeting = "<h1>Hello World!</h1>" %}
+{%@ greeting %}
+```
+
+Should compile as follow: `<h1>Hello World!</h1>`
+
+#### Writting comments
 
 ```html
 {%# You can write some comments here it will not be shown or evaluate
@@ -205,6 +219,7 @@ type Options = {
 
 ```
 = return a value
+@ return a value without escaping HTML
 # create a comment
 % Ingnore js instruction and display is as text with delimiters
 ```
@@ -232,16 +247,17 @@ Examples of implementation:
     description: "Allow user to add variable to the output",
     delimiter: "=",
     fn: function (content, options) {
-      return "$__output += " + content;
+      return `$__output += escapeHTML(${content})`;
     },
 },
 ```
 
 - <b>plugins</b> : Create custom acessibles function into the template. By default you have "include" and "includeBrowser" that allow you to render other template into the current template:
 
-```
+```ts
 include(filaname: string, data: Record<string, unknown>, options: Options): string | Promise<string>
 includeBrowser(filaname: string, data: Record<string, unknown>, options: Options): Promise<string>
+escapeHTML(obj: unknow): unknow //if the obj is a string HTML will be escaped
 ```
 
 Example of implementation:

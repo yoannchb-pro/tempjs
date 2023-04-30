@@ -6,7 +6,15 @@ const defaultDelimiters: Options["delimiters"] = [
     description: "Allow user to add variable to the output",
     delimiter: "=",
     fn: function (content) {
-      return "$__output += " + content;
+      return `$__output += escapeHTML(${content})`;
+    },
+  },
+  {
+    name: "return HTML",
+    description: "Allow user to add variable to the output with html inside",
+    delimiter: "@",
+    fn: function (content) {
+      return `$__output += ${content}`;
     },
   },
   {
@@ -22,10 +30,9 @@ const defaultDelimiters: Options["delimiters"] = [
     description: "Output the instruction as text with delimiters",
     delimiter: "%",
     fn: function (content, options) {
-      return `$__output += "${options.openDelimiter}${content.replace(
-        /"/gi,
-        '\\"'
-      )}${options.closeDelimiter}"`;
+      return `$__output += escapeHTML("${
+        options.openDelimiter
+      }${content.replace(/"/gi, '\\"')}${options.closeDelimiter}")`;
     },
   },
 ];
