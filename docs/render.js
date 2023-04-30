@@ -12,6 +12,7 @@ async function init() {
 
   const defaultTemplate = `<h1>{%@ await includeBrowser("./templates/header.html", { greeting }) %}</h1>
 <p>It is a simplified version. See the <a target="_blank" href="https://github.com/yoannchb-pro/tempjs">documentation</a> for the full version.</p>
+<p>The data object in this example is a JSON but with the full version you can use a javascript object.</p>
 <p>If you are on mobile you can see the editor below otherwise on the left.</p>
 <p>Use {%% javascript instruction %} inside the template.</p>
 {%_# Below is just a simple example of a todo list %}
