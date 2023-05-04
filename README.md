@@ -8,6 +8,7 @@ TEMPJS is a fast, low code and no dependencies templating langage where you can 
   - [Table of content](#table-of-content)
   - [Demo](#demo)
   - [Update](#update)
+  - [Why tempjs ?](#why-tempjs-)
   - [Installation](#installation)
   - [Import](#import)
   - [Simple example](#simple-example)
@@ -36,6 +37,24 @@ See a simplified live editor on the [github page](https://yoannchb-pro.github.io
 
 See the [CHANGELOG](./CHANGELOG.md) file
 
+## Why tempjs ?
+
+There are several reasons why you should consider using tempjs:
+
+1. <b>Lightweight</b>: tempjs is less than 5 kilobytes in size, making it a great choice for projects where size matters.
+
+2. <b>No dependencies</b>: tempjs has no external dependencies, so you won't have to worry about installing and maintaining additional packages.
+
+3. <b>Written in TypeScript</b>: tempjs is written in TypeScript, which makes it easy to use in modern projects and ensures that it follows best practices.
+
+4. <b>Fast</b>: tempjs is optimized for rendering templates quickly, so your users won't experience any delays while waiting for content to load.
+
+5. <b>Cross-platform</b>: tempjs works on any device and has the same properties and functionalities in both Node.js and the browser, making it a versatile tool for rendering templates in any environment.
+
+6. <b>Customizable</b>: With tempjs, you can add as many custom delimiters and plugins as you want, allowing you to tailor it to your specific needs and make it work exactly the way you want it to.
+
+By choosing tempjs, you can be confident that you're using a reliable and efficient template engine for your web application.
+
 ## Installation
 
 ```
@@ -45,7 +64,7 @@ $ npm i tempjs-template
 Or directly in the browser with
 
 ```html
-<script src="https://unpkg.com/tempjs-template@1.0.6/dist/index.js"></script>
+<script src="https://unpkg.com/tempjs-template@1.0.7/dist/index.js"></script>
 ```
 
 ## Import
@@ -95,7 +114,9 @@ await tempjs.compile(
         {%_ } _%}
     </ul>
     `,
-  {},
+  {
+    /*some data here*/
+  },
   { async: true }
 );
 ```
@@ -162,7 +183,9 @@ Should compile as follow: `<h1>Hello World!</h1>`
 
 #### Return a value without escaping HTML
 
-> **XSS injection**: Only use this with include/includeBrowser or if you are sure about what you are doing
+> **XSS injection warning**: Only use this with include/includeBrowser or if you are sure about what you are doing
+
+The html will be executed
 
 ```
 {% const greeting = "<h1>Hello World!</h1>" %}
@@ -199,6 +222,7 @@ type Options = {
   async?: boolean;
   minimified?: boolean;
   root?: string;
+  removeWhitespace?: boolean;
   delimiters?: {
     name: string;
     description: string;
@@ -215,6 +239,7 @@ type Options = {
 - <b>async</b> (default: false) : Make asynchronous requests in the template
 - <b>minimified</b> (default: true) : Make the generated code more readable in debug mode
 - <b>root</b> (default: null): Specifie a root directory for including files
+- <b>removeWhitespace</b> (default: false): Remove all whitespace before and after js instruction
 - <b>delimiters</b> : Create customs delimiters. By default you have:
 
 ```
@@ -257,6 +282,8 @@ Examples of implementation:
 ```ts
 include(filaname: string, data: Record<string, unknown>, options: Options): string | Promise<string>
 includeBrowser(filaname: string, data: Record<string, unknown>, options: Options): Promise<string>
+
+//Can be useful to create your own plugins
 escapeHTML(obj: unknow): unknow //if the obj is a string HTML will be escaped
 ```
 

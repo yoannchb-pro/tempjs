@@ -65,6 +65,20 @@ describe("Simple test list", function () {
     expect(result).toBe("Hello");
   });
 
+  it("Remove whitespace option - Should remove white spaces", function () {
+    const data = { greeting: "Hello" };
+    const result = tempjs.compile(
+      `
+        {% if(greeting){ %}
+            <p>{%= greeting %}</p>
+        {% } %}
+    `,
+      data,
+      { removeWhitespace: true }
+    );
+    expect(result).toBe("<p>Hello</p>");
+  });
+
   it("Skip js instruction - Should skip js instruction with string characters", function () {
     const result = tempjs.compile(`{%% console.log("hey") %}`);
     expect(result).toBe(`{% console.log(&quot;hey&quot;) %}`);

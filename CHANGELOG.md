@@ -1,15 +1,15 @@
 # Changelog
 
+## 1.0.7
+
+- Added `removeWhitespace` options
+
 ## v1.0.6
 
-- Prevent XSS injection
-- Added @ custom delimiter to add HTML without escaping HTML
+- <b>Prevent XSS injection</b>
+- Added `@` custom delimiter to add return a value without escaping HTML
 
-## v1.0.5
-
-- Little README update
-
-## v1.0.4
+## v1.0.5 and v1.0.4
 
 - Little README update
 
@@ -19,7 +19,7 @@
 
 ## v1.0.2
 
-- Added compileFileFromBrowser and includeBrowser
+- Added `compileFileFromBrowser` and `includeBrowser`
 
 ## v1.0.1
 

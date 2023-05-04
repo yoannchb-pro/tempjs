@@ -71,7 +71,8 @@ function debug<O extends Options>(
     if (removeStartWhiteSpace) {
       jsInstruction = jsInstruction.substring(1);
     } else {
-      generatedCode.push(`$__output += ${JSON.stringify(startWhiteSpace)}`);
+      if (!opts.removeWhitespace)
+        generatedCode.push(`$__output += ${JSON.stringify(startWhiteSpace)}`);
     }
     if (removeEndWhiteSpace) {
       jsInstruction = jsInstruction.substring(0, jsInstruction.length - 1);
@@ -86,7 +87,7 @@ function debug<O extends Options>(
     }
     generatedCode.push(jsInstruction);
 
-    if (!removeEndWhiteSpace)
+    if (!removeEndWhiteSpace && !opts.removeWhitespace)
       generatedCode.push(`$__output += ${JSON.stringify(endWhiteSpace)}`);
   }
 

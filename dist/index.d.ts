@@ -5,6 +5,7 @@ type Options = {
     async?: boolean;
     minimified?: boolean;
     root?: string;
+    removeWhitespace?: boolean;
     delimiters?: {
         name: string;
         description: string;
